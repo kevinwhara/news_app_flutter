@@ -16,6 +16,7 @@ import 'package:news_app/widgets/category_chip.dart';
 import 'package:news_app/widgets/featured_news_card.dart';
 import 'package:news_app/widgets/floating_navbar.dart';
 import 'package:news_app/widgets/news_list_tile.dart';
+import 'package:news_app/widgets/saved_article_card.dart';
 
 void main() {
   testWidgets('category chip renders and reports taps', (tester) async {
@@ -87,6 +88,8 @@ void main() {
                 FeaturedNewsCard(article: article, onTap: () {}),
                 const SizedBox(height: 16),
                 NewsListTile(article: article, onTap: () {}),
+                const SizedBox(height: 16),
+                SavedArticleCard(article: article, onTap: () {}),
               ],
             ),
           ),
