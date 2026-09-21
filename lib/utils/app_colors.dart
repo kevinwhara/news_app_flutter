@@ -6,8 +6,8 @@ class AppColors {
   static const Color secondary = Color(0xFFB71C1C);
 
   // Background & surface
-  static const Color background = Color(0xFFFFF8F8);
-  static const Color surface = Colors.white;
+  static const Color background = Color(0xFFFFFFFF);
+  static const Color surface = Color(0xFFFFFFFF);
 
   // Status colors
   static const Color error = Color(0xFFD32F2F);
@@ -25,8 +25,8 @@ class AppColors {
   static const Color textHint = Color(0xFFAAAAAA);
 
   // Additional colors
-  static const Color divider = Color(0xFFFFD6D6);
-  static const Color cardShadow = Color(0x1A000000);
+  static const Color divider = Color(0xFFEAEAEA);
+  static const Color cardShadow = Color(0x14000000);
 
   // Red variations
   static const Color redLight = Color(0xFFFFEBEE);
