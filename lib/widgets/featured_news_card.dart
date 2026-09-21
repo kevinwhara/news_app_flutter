@@ -18,6 +18,10 @@ class FeaturedNewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final source = article.source?.name?.trim();
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
+    final cardHeight = (280 + ((textScale - 1) * 72))
+        .clamp(280, 360)
+        .toDouble();
 
     return Semantics(
       button: true,
@@ -29,7 +33,7 @@ class FeaturedNewsCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: SizedBox(
-            height: 280,
+            height: cardHeight,
             child: Stack(
               fit: StackFit.expand,
               children: [

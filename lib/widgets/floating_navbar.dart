@@ -78,6 +78,9 @@ class FloatingNavbar extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           item.label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.labelSmall
                               ?.copyWith(
                                 color: isActive

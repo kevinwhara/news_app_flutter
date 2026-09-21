@@ -22,78 +22,80 @@ class NewsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final source = article.source?.name?.trim();
 
-    return Material(
-      color: AppColors.surface,
-      borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.sm),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              NewsImage(
-                imageUrl: article.urlToImage,
-                width: 116,
-                height: 112,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: SizedBox(
-                  height: 112,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              source == null || source.isEmpty
-                                  ? 'Top story'
-                                  : source,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.labelMedium
-                                  ?.copyWith(color: AppColors.primary),
-                            ),
-                          ),
-                          if (showBookmark)
-                            SizedBox.square(
-                              dimension: 32,
-                              child: FittedBox(
-                                child: BookmarkButton(article: article),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isCompact = constraints.maxWidth < 350;
+        final imageSize = isCompact ? 96.0 : 112.0;
+
+        return Material(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.sm),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  NewsImage(
+                    imageUrl: article.urlToImage,
+                    width: imageSize,
+                    height: imageSize,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  SizedBox(width: isCompact ? AppSpacing.sm : AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                source == null || source.isEmpty
+                                    ? 'Top story'
+                                    : source,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.labelMedium
+                                    ?.copyWith(color: AppColors.primary),
                               ),
                             ),
-                        ],
-                      ),
-                      const SizedBox(height: AppSpacing.xs),
-                      Expanded(
-                        child: Text(
+                            if (showBookmark)
+                              SizedBox.square(
+                                dimension: 40,
+                                child: BookmarkButton(article: article),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.xs),
+                        Text(
                           article.title ?? 'Untitled story',
-                          maxLines: 3,
+                          maxLines: isCompact ? 2 : 3,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(
                             context,
                           ).textTheme.titleMedium?.copyWith(fontSize: 15),
                         ),
-                      ),
-                      Text(
-                        NewsFormatters.publishedTime(article.publishedAt),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.textSecondary,
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
+                          NewsFormatters.publishedTime(article.publishedAt),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(color: AppColors.textSecondary),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

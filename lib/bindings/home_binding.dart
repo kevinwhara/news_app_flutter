@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:news_app/controllers/bookmark_controller.dart';
 import 'package:news_app/controllers/navigation_controller.dart';
 import 'package:news_app/controllers/news_controller.dart';
 import 'package:news_app/controllers/news_search_controller.dart';
@@ -12,7 +11,6 @@ class HomeBinding implements Bindings {
     Get.lazyPut<NewsSearchController>(
       () => NewsSearchController(Get.find<NewsService>()),
     );
-    Get.lazyPut<BookmarkController>(() => BookmarkController(), fenix: true);
     Get.lazyPut<NavigationController>(() => NavigationController());
   }
 }
