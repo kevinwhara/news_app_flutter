@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_app/routes/app_pages.dart';
@@ -15,6 +17,7 @@ class _SplashViewState extends State<SplashView>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
+  Timer? _navigationTimer;
 
   @override
   void initState() {
@@ -35,13 +38,14 @@ class _SplashViewState extends State<SplashView>
     _animationController.forward();
 
     // Navigate to home after 3 seconds
-    Future.delayed(Duration(seconds: 3), () {
-      Get.offAllNamed(Routes.HOME);
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted) Get.offAllNamed(Routes.HOME);
     });
   }
 
   @override
   void dispose() {
+    _navigationTimer?.cancel();
     _animationController.dispose();
     super.dispose();
   }

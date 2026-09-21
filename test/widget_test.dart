@@ -8,6 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:news_app/controllers/bookmark_controller.dart';
+import 'package:news_app/models/news_article.dart';
 import 'package:news_app/widgets/category_chip.dart';
 
 void main() {
@@ -32,5 +34,21 @@ void main() {
     await tester.pump();
 
     expect(wasTapped, isTrue);
+  });
+
+  test('bookmark controller toggles an article', () {
+    final controller = BookmarkController();
+    final article = NewsArticle(
+      title: 'A test story',
+      url: 'https://example.com/story',
+    );
+
+    controller.toggle(article);
+    expect(controller.isBookmarked(article), isTrue);
+    expect(controller.savedArticles, hasLength(1));
+
+    controller.toggle(article);
+    expect(controller.isBookmarked(article), isFalse);
+    expect(controller.savedArticles, isEmpty);
   });
 }
