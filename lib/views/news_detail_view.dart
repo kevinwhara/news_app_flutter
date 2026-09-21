@@ -44,10 +44,7 @@ class NewsDetailView extends StatelessWidget {
               padding: const EdgeInsets.only(left: AppSpacing.md),
               child: IconButton(
                 tooltip: 'Back',
-                style: IconButton.styleFrom(
-                  backgroundColor: AppColors.redLight,
-                  foregroundColor: AppColors.textPrimary,
-                ),
+                color: AppColors.textPrimary,
                 onPressed: Get.back,
                 icon: const Icon(Icons.arrow_back_rounded),
               ),
