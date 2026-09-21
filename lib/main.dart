@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:news_app/bindings/app_bindings.dart';
 import 'package:news_app/routes/app_pages.dart';
-import 'package:news_app/utils/app_colors.dart';
+import 'package:news_app/utils/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,22 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'News App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: AppColors.primary,
-        scaffoldBackgroundColor: AppColors.background,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
-          ),
-        ),
-      ),
+      theme: AppTheme.light,
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
       initialBinding: AppBindings(),
