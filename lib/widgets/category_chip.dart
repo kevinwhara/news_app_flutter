@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/utils/app_colors.dart';
+import 'package:news_app/utils/app_spacing.dart';
 
 class CategoryChip extends StatelessWidget {
   final String label;
@@ -15,26 +16,25 @@ class CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8),
-      child: FilterChip(
-        label: Text(label),
-        selected: isSelected,
-        onSelected: (_) => onTap(),
-        backgroundColor: Colors.grey[100],
-        selectedColor: AppColors.primary.withValues(alpha: 0.2),
-        checkmarkColor: AppColors.primary,
-        labelStyle: TextStyle(
-          color: isSelected ? AppColors.primary : AppColors.textSecondary,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: isSelected ? AppColors.primary : Colors.transparent,
-          ),
-        ),
+    return ChoiceChip(
+      label: Text(label),
+      selected: isSelected,
+      showCheckmark: false,
+      onSelected: (_) => onTap(),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+      backgroundColor: AppColors.surface,
+      selectedColor: AppColors.primary,
+      side: BorderSide(
+        color: isSelected ? AppColors.primary : AppColors.divider,
       ),
+      labelStyle: TextStyle(
+        color: isSelected ? AppColors.onPrimary : AppColors.textPrimary,
+        fontWeight: FontWeight.w700,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.pillRadius),
+      ),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 }
