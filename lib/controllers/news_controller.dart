@@ -13,6 +13,7 @@ class NewsController extends GetxController {
   final _articles = <NewsArticle>[].obs;
   final _selectedCategory = 'general'.obs;
   final _error = ''.obs;
+  int _requestId = 0;
 
   // Getters
   bool get isLoading => _isLoading.value;
@@ -28,6 +29,8 @@ class NewsController extends GetxController {
   }
 
   Future<void> fetchTopHeadlines({String? category}) async {
+    final requestId = ++_requestId;
+
     try {
       _isLoading.value = true;
       _error.value = '';
@@ -36,16 +39,15 @@ class NewsController extends GetxController {
         category: category ?? _selectedCategory.value,
       );
 
-      _articles.value = response.articles;
+      if (requestId != _requestId) return;
+      _articles.assignAll(response.articles);
     } catch (e) {
+      if (requestId != _requestId) return;
       _error.value = e.toString();
-      Get.snackbar(
-        'Error',
-        'Failed to load news: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
-      );
     } finally {
-      _isLoading.value = false;
+      if (requestId == _requestId) {
+        _isLoading.value = false;
+      }
     }
   }
 
@@ -57,27 +59,6 @@ class NewsController extends GetxController {
     if (_selectedCategory.value != category) {
       _selectedCategory.value = category;
       fetchTopHeadlines(category: category);
-    }
-  }
-
-  Future<void> searchNews(String query) async {
-    if (query.isEmpty) return;
-
-    try {
-      _isLoading.value = true;
-      _error.value = '';
-
-      final response = await _newsService.searchNews(query: query);
-      _articles.value = response.articles;
-    } catch (e) {
-      _error.value = e.toString();
-      Get.snackbar(
-        'Error',
-        'Failed to search news: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    } finally {
-      _isLoading.value = false;
     }
   }
 }
