@@ -59,14 +59,14 @@ class HomeView extends GetView<NewsController> {
                   ),
                 )
               else ...[
-                Text(
-                  'Top story',
-                  style: Theme.of(context).textTheme.titleLarge,
+                const _SectionHeader(
+                  title: 'Top stories',
+                  caption: 'Swipe to explore',
                 ),
                 const SizedBox(height: AppSpacing.md),
-                FeaturedNewsCard(
-                  article: controller.articles.first,
-                  onTap: () => _openArticle(controller.articles.first),
+                _TopStoriesCarousel(
+                  articles: controller.articles.take(5).toList(),
+                  onArticleTap: _openArticle,
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 _SectionHeader(
@@ -100,7 +100,11 @@ class HomeView extends GetView<NewsController> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 ...controller.articles
-                    .skip(1)
+                    .skip(
+                      controller.articles.length < 5
+                          ? controller.articles.length
+                          : 5,
+                    )
                     .map(
                       (article) => Padding(
                         padding: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -110,6 +114,7 @@ class HomeView extends GetView<NewsController> {
                         ),
                       ),
                     ),
+                _LoadMoreSection(controller: controller),
               ],
             ],
           ),
@@ -120,6 +125,110 @@ class HomeView extends GetView<NewsController> {
 
   void _openArticle(NewsArticle article) {
     Get.toNamed(Routes.NEWS_DETAIL, arguments: article);
+  }
+}
+
+class _TopStoriesCarousel extends StatelessWidget {
+  const _TopStoriesCarousel({
+    required this.articles,
+    required this.onArticleTap,
+  });
+
+  final List<NewsArticle> articles;
+  final ValueChanged<NewsArticle> onArticleTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final availableWidth =
+        MediaQuery.sizeOf(context).width - (AppSpacing.lg * 2);
+    final cardWidth = (availableWidth * 0.9).clamp(250, 380).toDouble();
+
+    return SizedBox(
+      height: FeaturedNewsCard.preferredHeight(context),
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        itemCount: articles.length,
+        separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.md),
+        itemBuilder: (context, index) {
+          final article = articles[index];
+          return SizedBox(
+            width: cardWidth,
+            child: FeaturedNewsCard(
+              article: article,
+              onTap: () => onArticleTap(article),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _LoadMoreSection extends StatelessWidget {
+  const _LoadMoreSection({required this.controller});
+
+  final NewsController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    if (controller.isLoadingMore) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: AppSpacing.xl),
+        child: Center(
+          child: SizedBox.square(
+            dimension: 24,
+            child: CircularProgressIndicator(strokeWidth: 2.5),
+          ),
+        ),
+      );
+    }
+
+    if (controller.hasMore) {
+      return Padding(
+        padding: const EdgeInsets.only(top: AppSpacing.sm),
+        child: OutlinedButton.icon(
+          onPressed: controller.loadMoreNews,
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 52),
+            foregroundColor: AppColors.primary,
+            side: const BorderSide(color: AppColors.redSoft),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
+            ),
+          ),
+          icon: Icon(
+            controller.loadMoreError.isEmpty
+                ? Icons.add_rounded
+                : Icons.refresh_rounded,
+          ),
+          label: Text(
+            controller.loadMoreError.isEmpty
+                ? 'Load more stories'
+                : 'Try loading again',
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xl),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.check_circle_outline_rounded,
+            size: 18,
+            color: AppColors.textSecondary,
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          Text(
+            "You're all caught up",
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ],
+      ),
+    );
   }
 }
 

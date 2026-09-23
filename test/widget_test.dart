@@ -10,7 +10,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 
 import 'package:news_app/controllers/bookmark_controller.dart';
+import 'package:news_app/controllers/news_controller.dart';
 import 'package:news_app/models/news_article.dart';
+import 'package:news_app/models/news_response.dart';
+import 'package:news_app/services/news_service.dart';
 import 'package:news_app/utils/app_theme.dart';
 import 'package:news_app/widgets/category_chip.dart';
 import 'package:news_app/widgets/featured_news_card.dart';
@@ -56,6 +59,30 @@ void main() {
     controller.toggle(article);
     expect(controller.isBookmarked(article), isFalse);
     expect(controller.savedArticles, isEmpty);
+  });
+
+  test('news controller appends additional headline pages', () async {
+    final controller = NewsController(
+      _FakeNewsService({
+        1: [
+          NewsArticle(title: 'First story', url: 'https://example.com/1'),
+          NewsArticle(title: 'Second story', url: 'https://example.com/2'),
+        ],
+        2: [NewsArticle(title: 'Third story', url: 'https://example.com/3')],
+      }),
+    );
+
+    await controller.fetchTopHeadlines();
+    expect(controller.articles, hasLength(2));
+    expect(controller.hasMore, isTrue);
+
+    await controller.loadMoreNews();
+    expect(controller.articles.map((article) => article.title), [
+      'First story',
+      'Second story',
+      'Third story',
+    ]);
+    expect(controller.hasMore, isFalse);
   });
 
   testWidgets('news cards fit a compact screen with large text', (
@@ -123,4 +150,28 @@ void main() {
 
     expect(tester.takeException(), isNull);
   });
+}
+
+class _FakeNewsService extends NewsService {
+  _FakeNewsService(this.pages);
+
+  final Map<int, List<NewsArticle>> pages;
+
+  @override
+  Future<NewsResponse> getTopHeadlines({
+    String country = 'us',
+    String? category,
+    int page = 1,
+    int pageSize = 20,
+  }) async {
+    final totalResults = pages.values.fold<int>(
+      0,
+      (total, articles) => total + articles.length,
+    );
+    return NewsResponse(
+      status: 'ok',
+      totalResults: totalResults,
+      articles: pages[page] ?? const [],
+    );
+  }
 }

@@ -15,13 +15,15 @@ class FeaturedNewsCard extends StatelessWidget {
   final NewsArticle article;
   final VoidCallback onTap;
 
+  static double preferredHeight(BuildContext context) {
+    final textScale = MediaQuery.textScalerOf(context).scale(1);
+    return (280 + ((textScale - 1) * 72)).clamp(280, 360).toDouble();
+  }
+
   @override
   Widget build(BuildContext context) {
     final source = article.source?.name?.trim();
-    final textScale = MediaQuery.textScalerOf(context).scale(1);
-    final cardHeight = (280 + ((textScale - 1) * 72))
-        .clamp(280, 360)
-        .toDouble();
+    final cardHeight = preferredHeight(context);
 
     return Semantics(
       button: true,
