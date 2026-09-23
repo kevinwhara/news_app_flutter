@@ -30,10 +30,10 @@ class NewsStateView extends StatelessWidget {
               width: 72,
               height: 72,
               decoration: const BoxDecoration(
-                color: AppColors.redLight,
+                color: AppColors.surfaceMuted,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: 34, color: AppColors.primary),
+              child: Icon(icon, size: 34, color: AppColors.textSecondary),
             ),
             const SizedBox(height: AppSpacing.lg),
             Text(
@@ -86,7 +86,7 @@ class NewsLoadingState extends StatelessWidget {
                 Container(
                   width: 116,
                   decoration: BoxDecoration(
-                    color: AppColors.redLight,
+                    color: AppColors.surfaceStrong,
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
@@ -129,7 +129,7 @@ class _SkeletonLine extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: AppColors.redLight,
+          color: AppColors.surfaceStrong,
           borderRadius: BorderRadius.circular(AppSpacing.pillRadius),
         ),
       ),

@@ -191,8 +191,9 @@ class _LoadMoreSection extends StatelessWidget {
           onPressed: controller.loadMoreNews,
           style: OutlinedButton.styleFrom(
             minimumSize: const Size(double.infinity, 52),
-            foregroundColor: AppColors.primary,
-            side: const BorderSide(color: AppColors.redSoft),
+            foregroundColor: AppColors.textPrimary,
+            backgroundColor: AppColors.surface,
+            side: const BorderSide(color: AppColors.divider),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
             ),
@@ -247,10 +248,9 @@ class _HomeHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'GOOD MORNING',
+                'Your daily briefing',
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.primary,
-                  letterSpacing: 1.2,
+                  color: AppColors.textSecondary,
                 ),
               ),
               const SizedBox(height: AppSpacing.xs),
@@ -265,8 +265,8 @@ class _HomeHeader extends StatelessWidget {
           tooltip: 'Search news',
           onPressed: onSearch,
           style: IconButton.styleFrom(
-            backgroundColor: AppColors.redLight,
-            foregroundColor: AppColors.primary,
+            backgroundColor: AppColors.surfaceMuted,
+            foregroundColor: AppColors.textPrimary,
           ),
           icon: const Icon(Icons.search_rounded),
         ),

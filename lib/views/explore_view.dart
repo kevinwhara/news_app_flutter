@@ -97,7 +97,7 @@ class _ExploreViewState extends State<ExploreView> {
                   avatar: const Icon(
                     Icons.tag_rounded,
                     size: 17,
-                    color: AppColors.primary,
+                    color: AppColors.textSecondary,
                   ),
                   label: Text(topic),
                   onPressed: () {

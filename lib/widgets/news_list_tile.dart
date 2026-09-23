@@ -29,7 +29,11 @@ class NewsListTile extends StatelessWidget {
 
         return Material(
           color: AppColors.surface,
-          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+            side: const BorderSide(color: AppColors.divider),
+          ),
+          clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: onTap,
             borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
@@ -60,7 +64,7 @@ class NewsListTile extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.labelMedium
-                                    ?.copyWith(color: AppColors.primary),
+                                    ?.copyWith(color: AppColors.textSecondary),
                               ),
                             ),
                             if (showBookmark)
@@ -75,9 +79,7 @@ class NewsListTile extends StatelessWidget {
                           article.title ?? 'Untitled story',
                           maxLines: isCompact ? 2 : 3,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleMedium?.copyWith(fontSize: 15),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: AppSpacing.sm),
                         Text(

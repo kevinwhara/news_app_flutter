@@ -29,7 +29,7 @@ class CategoryChip extends StatelessWidget {
       ),
       labelStyle: TextStyle(
         color: isSelected ? AppColors.onPrimary : AppColors.textPrimary,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSpacing.pillRadius),

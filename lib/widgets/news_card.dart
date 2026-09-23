@@ -64,7 +64,7 @@ class NewsCard extends StatelessWidget {
                           child: Text(
                             article.source!.name!,
                             style: TextStyle(
-                              color: AppColors.primary,
+                              color: AppColors.textSecondary,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),

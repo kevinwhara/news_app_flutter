@@ -59,8 +59,8 @@ class NewsDetailView extends StatelessWidget {
                 child: IconButton(
                   tooltip: 'Share article',
                   style: IconButton.styleFrom(
-                    backgroundColor: AppColors.redLight,
-                    foregroundColor: AppColors.primary,
+                    backgroundColor: AppColors.surfaceMuted,
+                    foregroundColor: AppColors.textPrimary,
                   ),
                   onPressed: () => _shareArticle(currentArticle),
                   icon: const Icon(Icons.ios_share_rounded),
@@ -126,29 +126,28 @@ class NewsDetailView extends StatelessWidget {
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.redLight,
+                          color: AppColors.surfaceMuted,
                           borderRadius: BorderRadius.circular(
                             AppSpacing.pillRadius,
                           ),
                         ),
                         child: Text(
                           source == null || source.isEmpty
-                              ? 'TOP STORY'
-                              : source.toUpperCase(),
+                              ? 'Top story'
+                              : source,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.labelMedium
                               ?.copyWith(
-                                color: AppColors.primary,
-                                letterSpacing: 0.6,
+                                color: AppColors.textSecondary,
+                                letterSpacing: 0.4,
                               ),
                         ),
                       ),
                       const SizedBox(height: AppSpacing.lg),
                       Text(
                         currentArticle.title ?? 'Untitled story',
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontSize: 27, height: 1.25),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: AppSpacing.md),
                       Row(
@@ -157,13 +156,13 @@ class NewsDetailView extends StatelessWidget {
                             width: 34,
                             height: 34,
                             decoration: const BoxDecoration(
-                              color: AppColors.redLight,
+                              color: AppColors.surfaceMuted,
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
                               Icons.schedule_rounded,
                               size: 17,
-                              color: AppColors.primary,
+                              color: AppColors.textSecondary,
                             ),
                           ),
                           const SizedBox(width: AppSpacing.sm),
@@ -178,8 +177,8 @@ class NewsDetailView extends StatelessWidget {
                           IconButton(
                             tooltip: 'Copy link',
                             style: IconButton.styleFrom(
-                              backgroundColor: AppColors.redLight,
-                              foregroundColor: AppColors.primary,
+                              backgroundColor: AppColors.surfaceMuted,
+                              foregroundColor: AppColors.textSecondary,
                             ),
                             onPressed: () => _copyLink(currentArticle),
                             icon: const Icon(Icons.link_rounded),
@@ -304,9 +303,11 @@ class _ArticleActions extends GetView<BookmarkController> {
         onPressed: () => controller.toggle(article),
         style: OutlinedButton.styleFrom(
           minimumSize: const Size(0, 52),
-          foregroundColor: AppColors.primary,
+          foregroundColor: isSaved ? AppColors.primary : AppColors.textPrimary,
           backgroundColor: isSaved ? AppColors.redLight : AppColors.surface,
-          side: const BorderSide(color: AppColors.redSoft),
+          side: BorderSide(
+            color: isSaved ? AppColors.redSoft : AppColors.divider,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
           ),

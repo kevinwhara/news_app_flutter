@@ -21,37 +21,48 @@ abstract final class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.background,
-      fontFamily: 'Roboto',
       textTheme: baseTextTheme.copyWith(
         headlineSmall: baseTextTheme.headlineSmall?.copyWith(
-          color: AppColors.textPrimary,
-          fontWeight: FontWeight.w800,
-          height: 1.2,
-        ),
-        titleLarge: baseTextTheme.titleLarge?.copyWith(
+          fontSize: 26,
           color: AppColors.textPrimary,
           fontWeight: FontWeight.w700,
-          height: 1.25,
+          height: 1.18,
+          letterSpacing: -0.35,
         ),
-        titleMedium: baseTextTheme.titleMedium?.copyWith(
+        titleLarge: baseTextTheme.titleLarge?.copyWith(
+          fontSize: 20,
           color: AppColors.textPrimary,
           fontWeight: FontWeight.w700,
           height: 1.3,
+          letterSpacing: -0.2,
+        ),
+        titleMedium: baseTextTheme.titleMedium?.copyWith(
+          fontSize: 16,
+          color: AppColors.textPrimary,
+          fontWeight: FontWeight.w600,
+          height: 1.35,
         ),
         bodyLarge: baseTextTheme.bodyLarge?.copyWith(
+          fontSize: 16,
           color: AppColors.textPrimary,
-          height: 1.55,
+          fontWeight: FontWeight.w400,
+          height: 1.6,
         ),
         bodyMedium: baseTextTheme.bodyMedium?.copyWith(
+          fontSize: 14,
           color: AppColors.textSecondary,
-          height: 1.45,
+          fontWeight: FontWeight.w400,
+          height: 1.5,
         ),
         labelLarge: baseTextTheme.labelLarge?.copyWith(
-          fontWeight: FontWeight.w700,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
         ),
         labelMedium: baseTextTheme.labelMedium?.copyWith(
+          fontSize: 12,
           color: AppColors.textSecondary,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.1,
         ),
       ),
       appBarTheme: const AppBarTheme(

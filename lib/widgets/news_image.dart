@@ -49,7 +49,7 @@ class _ImagePlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ColoredBox(
-      color: AppColors.redLight,
+      color: AppColors.surfaceMuted,
       child: Center(
         child: SizedBox.square(
           dimension: 22,
@@ -66,11 +66,11 @@ class _ImageFallback extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ColoredBox(
-      color: AppColors.redLight,
+      color: AppColors.surfaceMuted,
       child: Center(
         child: Icon(
           Icons.newspaper_rounded,
-          color: AppColors.redSoft,
+          color: AppColors.textTertiary,
           size: 42,
         ),
       ),

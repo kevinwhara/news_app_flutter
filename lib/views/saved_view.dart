@@ -105,9 +105,9 @@ class _SavedSummary extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.redLight,
+        color: AppColors.surfaceMuted,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.redSoft),
+        border: Border.all(color: AppColors.divider),
       ),
       child: Row(
         children: [
@@ -120,7 +120,7 @@ class _SavedSummary extends StatelessWidget {
             ),
             child: const Icon(
               Icons.bookmarks_rounded,
-              color: AppColors.primary,
+              color: AppColors.textSecondary,
             ),
           ),
           const SizedBox(width: AppSpacing.lg),

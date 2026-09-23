@@ -59,7 +59,7 @@ class SavedArticleCard extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.labelMedium
-                                ?.copyWith(color: AppColors.primary),
+                                ?.copyWith(color: AppColors.textSecondary),
                           ),
                         ),
                         Text(
@@ -92,19 +92,19 @@ class SavedArticleCard extends StatelessWidget {
                         const Icon(
                           Icons.menu_book_rounded,
                           size: 18,
-                          color: AppColors.primary,
+                          color: AppColors.textSecondary,
                         ),
                         const SizedBox(width: AppSpacing.sm),
                         Expanded(
                           child: Text(
                             'Read story',
                             style: Theme.of(context).textTheme.labelLarge
-                                ?.copyWith(color: AppColors.primary),
+                                ?.copyWith(color: AppColors.textPrimary),
                           ),
                         ),
                         BookmarkButton(
                           article: article,
-                          backgroundColor: AppColors.redLight,
+                          backgroundColor: AppColors.surfaceMuted,
                         ),
                       ],
                     ),
